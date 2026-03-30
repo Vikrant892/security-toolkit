@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Toolkit - 15+ Tools for Cybersecurity, Data & ML</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#475569;--text:#e2e8f0;--dim:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--amber:#f59e0b;--green:#22c55e;--red:#ef4444;--blue:#3b82f6}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+a{color:var(--cyan);text-decoration:none}
+
+/* CVE Ticker */
+.ticker-wrap{background:#0c1222;border-bottom:1px solid rgba(6,182,212,0.15);overflow:hidden;padding:10px 0;position:sticky;top:0;z-index:100}
+.ticker{display:flex;gap:48px;animation:scroll 40s linear infinite;white-space:nowrap;width:max-content}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{font-size:.78rem;color:var(--dim);display:flex;align-items:center;gap:8px}
+.ticker-item .cve-id{color:var(--red);font-weight:700}
+.ticker-item .cve-sev{padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700}
+.sev-crit{background:rgba(239,68,68,0.15);color:var(--red)}
+.sev-high{background:rgba(249,115,22,0.15);color:#f97316}
+.sev-med{background:rgba(245,158,11,0.15);color:var(--amber)}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* Header */
+.header{text-align:center;padding:60px 20px 32px}
+.header-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:100px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.2);font-size:.8rem;color:var(--cyan);font-weight:600;margin-bottom:20px}
+.header-badge .gh-pulse{width:8px;height:8px;border-radius:50%;background:var(--green);animation:ghPulse 2s infinite}
+@keyframes ghPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+.header h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:12px}
+.header h1 .cyan{color:var(--cyan)}
+.header h1 .purple{color:var(--purple)}
+.header p{color:var(--dim);font-size:1.05rem;max-width:550px;margin:0 auto 20px}
+.header-counter{font-size:1.8rem;font-weight:800;color:var(--cyan)}
+.header-counter span{color:var(--dim);font-size:1rem;font-weight:400}
+
+/* Tabs */
+.tabs{display:flex;justify-content:center;gap:8px;margin:32px 0 28px;flex-wrap:wrap}
+.tab{padding:10px 22px;border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid transparent;background:rgba(255,255,255,0.03);color:var(--dim);transition:all .2s;user-select:none}
+.tab:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+.tab.active{color:#fff}
+.tab.active[data-cat="all"]{background:rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.3);color:var(--cyan)}
+.tab.active[data-cat="cybersecurity"]{background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.3);color:var(--red)}
+.tab.active[data-cat="data"]{background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3);color:var(--purple)}
+.tab.active[data-cat="ml"]{background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.3);color:var(--green)}
+.tab.active[data-cat="automation"]{background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.3);color:var(--amber)}
+
+/* Tool Grid */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:48px}
+.tool-card{background:var(--surface);border:1px solid rgba(71,85,105,0.4);border-radius:14px;padding:20px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.tool-card::before{content:'';position:absolute;inset:-1px;border-radius:14px;padding:1px;background:linear-gradient(135deg,transparent 40%,var(--glow,var(--cyan)) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
+.tool-card:hover::before{opacity:1}
+.tool-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.tool-card.expanded{grid-column:1/-1;max-width:100%}
+.tool-top{display:flex;align-items:flex-start;gap:14px}
+.tool-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.tool-icon.cyber{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)}
+.tool-icon.data{background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2)}
+.tool-icon.ml{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2)}
+.tool-icon.auto{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2)}
+.tool-info h3{font-size:.95rem;font-weight:700;margin-bottom:4px}
+.tool-info p{font-size:.8rem;color:var(--dim);line-height:1.4}
+.tool-badge{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:6px;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.badge-cyber{background:rgba(239,68,68,0.1);color:var(--red)}
+.badge-data{background:rgba(139,92,246,0.1);color:var(--purple)}
+.badge-ml{background:rgba(34,197,94,0.1);color:var(--green)}
+.badge-auto{background:rgba(245,158,11,0.1);color:var(--amber)}
+
+/* Expanded detail */
+.tool-detail{display:none;margin-top:16px;padding-top:16px;border-top:1px solid rgba(71,85,105,0.3)}
+.tool-card.expanded .tool-detail{display:block}
+.tool-detail h4{font-size:.85rem;color:var(--cyan);margin-bottom:8px}
+.tool-detail pre{background:#0f172a;border:1px solid rgba(71,85,105,0.3);border-radius:8px;padding:14px;font-size:.78rem;font-family:'Cascadia Code','Fira Code',monospace;color:var(--dim);overflow-x:auto;line-height:1.7}
+.tool-detail pre .cmd{color:var(--cyan)}
+.tool-detail pre .flag{color:var(--amber)}
+.tool-detail pre .comment{color:#4a5568}
+
+/* Actions badge */
+.actions-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);font-size:.85rem;margin-top:24px}
+.actions-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:ghPulse 2s infinite}
+
+footer{padding:40px 20px;text-align:center;color:var(--dim);font-size:.85rem;border-top:1px solid rgba(71,85,105,0.3);margin-top:24px}
+footer a{color:var(--cyan)}
+</style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span class="gh-pulse"></span> Daily builds: Active</div>
+    <h1><span class="cyan">Security</span> <span class="purple">Toolkit</span></h1>
+    <p>A curated collection of cybersecurity, data engineering, ML, and automation tools built for modern workflows.</p>
+    <div class="header-counter">15+ tools <span>and growing</span></div>
+    <div class="actions-badge"><span class="dot"></span> GitHub Actions: All checks passing</div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-cat="all" onclick="filterTools('all',this)">All Tools</div>
+    <div class="tab" data-cat="cybersecurity" onclick="filterTools('cybersecurity',this)">Cybersecurity</div>
+    <div class="tab" data-cat="data" onclick="filterTools('data',this)">Data Engineering</div>
+    <div class="tab" data-cat="ml" onclick="filterTools('ml',this)">ML</div>
+    <div class="tab" data-cat="automation" onclick="filterTools('automation',this)">Automation</div>
+  </div>
+
+  <div class="tool-grid" id="toolGrid"></div>
+</div>
+
+<footer>
+  <p>Built by <strong>Vikrant Sharma</strong> &middot; <a href="https://github.com/Vikrant892/security-toolkit" target="_blank">View on GitHub</a></p>
+</footer>
+
+<script>
+// CVE Ticker
+const cves=[
+  {id:'CVE-2024-21762',desc:'FortiOS out-of-bound write',sev:'CRITICAL',cls:'sev-crit'},
+  {id:'CVE-2024-3400',desc:'PAN-OS command injection',sev:'CRITICAL',cls:'sev-crit'},
+  {id:'CVE-2024-24576',desc:'Rust std::process::Command injection on Windows',sev:'HIGH',cls:'sev-high'},
+  {id:'CVE-2024-27198',desc:'JetBrains TeamCity auth bypass',sev:'CRITICAL',cls:'sev-crit'},
+  {id:'CVE-2024-1709',desc:'ConnectWise ScreenConnect path traversal',sev:'CRITICAL',cls:'sev-crit'},
+  {id:'CVE-2024-20353',desc:'Cisco ASA/FTD denial of service',sev:'HIGH',cls:'sev-high'},
+  {id:'CVE-2024-4577',desc:'PHP CGI argument injection',sev:'CRITICAL',cls:'sev-crit'},
+  {id:'CVE-2024-28995',desc:'SolarWinds Serv-U path traversal',sev:'HIGH',cls:'sev-high'},
+  {id:'CVE-2024-6387',desc:'OpenSSH regreSSHion RCE',sev:'HIGH',cls:'sev-high'},
+  {id:'CVE-2024-38063',desc:'Windows TCP/IP RCE via IPv6',sev:'CRITICAL',cls:'sev-crit'},
+];
+const ticker=document.getElementById('ticker');
+const tickerHTML=cves.map(c=>`<div class="ticker-item"><span class="cve-id">${c.id}</span>${c.desc}<span class="cve-sev ${c.cls}">${c.sev}</span></div>`).join('');
+ticker.innerHTML=tickerHTML+tickerHTML;
+
+// Tools data
+const tools=[
+  {name:'Port Scanner',icon:'\u{1F50D}',desc:'Fast TCP/UDP port scanning with service detection and banner grabbing.',cat:'cybersecurity',glow:'var(--red)',usage:'<span class="cmd">python</span> port_scanner.py <span class="flag">--target</span> 192.168.1.0/24 <span class="flag">--ports</span> 1-1024 <span class="flag">--threads</span> 50'},
+  {name:'Subdomain Enumerator',icon:'\u{1F310}',desc:'DNS brute-force and certificate transparency log search for subdomains.',cat:'cybersecurity',glow:'var(--red)',usage:'<span class="cmd">python</span> subdomain_enum.py <span class="flag">-d</span> example.com <span class="flag">--wordlist</span> common.txt'},
+  {name:'Password Auditor',icon:'\u{1F511}',desc:'Hash cracking and password policy compliance checker with wordlist support.',cat:'cybersecurity',glow:'var(--red)',usage:'<span class="cmd">python</span> pass_audit.py <span class="flag">--hashes</span> dump.txt <span class="flag">--rules</span> best64'},
+  {name:'Log Analyzer',icon:'\u{1F4CA}',desc:'Parse and correlate security logs with MITRE ATT&CK mapping.',cat:'cybersecurity',glow:'var(--red)',usage:'<span class="cmd">python</span> log_analyzer.py <span class="flag">--input</span> auth.log <span class="flag">--format</span> syslog'},
+  {name:'WAF Tester',icon:'\u{1F6E1}',desc:'Web Application Firewall bypass testing with evasion techniques.',cat:'cybersecurity',glow:'var(--red)',usage:'<span class="cmd">python</span> waf_test.py <span class="flag">--url</span> https://target.com <span class="flag">--payloads</span> xss.txt'},
+  {name:'ETL Pipeline',icon:'\u{1F504}',desc:'Configurable extract-transform-load pipeline with 12+ source connectors.',cat:'data',glow:'var(--purple)',usage:'<span class="cmd">python</span> etl.py <span class="flag">--config</span> pipeline.yaml <span class="flag">--source</span> postgres <span class="flag">--sink</span> bigquery'},
+  {name:'Schema Differ',icon:'\u{1F4DD}',desc:'Compare database schemas across environments and generate migration SQL.',cat:'data',glow:'var(--purple)',usage:'<span class="cmd">python</span> schema_diff.py <span class="flag">--source</span> prod_db <span class="flag">--target</span> staging_db'},
+  {name:'Data Profiler',icon:'\u{1F4C8}',desc:'Statistical profiling of datasets with anomaly detection and quality scores.',cat:'data',glow:'var(--purple)',usage:'<span class="cmd">python</span> profiler.py <span class="flag">--input</span> dataset.csv <span class="flag">--report</span> html'},
+  {name:'Query Optimizer',icon:'\u26A1',desc:'Analyze and optimize slow SQL queries with execution plan visualization.',cat:'data',glow:'var(--purple)',usage:'<span class="cmd">python</span> query_opt.py <span class="flag">--query</span> slow.sql <span class="flag">--explain</span>'},
+  {name:'Anomaly Detector',icon:'\u{1F9E0}',desc:'ML-based anomaly detection for time-series data and log streams.',cat:'ml',glow:'var(--green)',usage:'<span class="cmd">python</span> anomaly.py <span class="flag">--model</span> isolation_forest <span class="flag">--data</span> metrics.csv'},
+  {name:'Threat Classifier',icon:'\u{1F916}',desc:'NLP classifier for categorizing security alerts and threat intelligence.',cat:'ml',glow:'var(--green)',usage:'<span class="cmd">python</span> classifier.py <span class="flag">--train</span> alerts.json <span class="flag">--model</span> bert-base'},
+  {name:'Payload Generator',icon:'\u{1F9EA}',desc:'ML-assisted fuzzing payload generation for penetration testing.',cat:'ml',glow:'var(--green)',usage:'<span class="cmd">python</span> payload_gen.py <span class="flag">--type</span> xss <span class="flag">--mutations</span> 100'},
+  {name:'CI/CD Scanner',icon:'\u2699\uFE0F',desc:'Scan GitHub Actions, GitLab CI, and Jenkins pipelines for misconfigurations.',cat:'automation',glow:'var(--amber)',usage:'<span class="cmd">python</span> ci_scan.py <span class="flag">--repo</span> org/project <span class="flag">--platform</span> github'},
+  {name:'Secret Rotator',icon:'\u{1F504}',desc:'Automated secret rotation for AWS, GCP, and Azure credentials.',cat:'automation',glow:'var(--amber)',usage:'<span class="cmd">python</span> rotate.py <span class="flag">--provider</span> aws <span class="flag">--service</span> iam <span class="flag">--dry-run</span>'},
+  {name:'Compliance Checker',icon:'\u2705',desc:'Validate infrastructure against CIS benchmarks and SOC2 controls.',cat:'automation',glow:'var(--amber)',usage:'<span class="cmd">python</span> compliance.py <span class="flag">--standard</span> cis <span class="flag">--target</span> aws-account'},
+  {name:'Report Generator',icon:'\u{1F4C4}',desc:'Generate PDF/HTML security assessment reports from scan results.',cat:'automation',glow:'var(--amber)',usage:'<span class="cmd">python</span> report.py <span class="flag">--scans</span> results/ <span class="flag">--format</span> pdf <span class="flag">--template</span> executive'},
+];
+
+const catMap={cybersecurity:{icon:'cyber',badge:'badge-cyber'},data:{icon:'data',badge:'badge-data'},ml:{icon:'ml',badge:'badge-ml'},automation:{icon:'auto',badge:'badge-auto'}};
+
+function renderTools(filter){
+  const grid=document.getElementById('toolGrid');
+  const filtered=filter==='all'?tools:tools.filter(t=>t.cat===filter);
+  grid.innerHTML=filtered.map((t,i)=>{
+    const cm=catMap[t.cat];
+    return `<div class="tool-card" style="--glow:${t.glow};animation:fadeUp .4s ${i*0.04}s both" onclick="toggleExpand(this)">
+      <div class="tool-top">
+        <div class="tool-icon ${cm.icon}">${t.icon}</div>
+        <div class="tool-info">
+          <h3>${t.name}</h3>
+          <p>${t.desc}</p>
+          <span class="tool-badge ${cm.badge}">${t.cat}</span>
+        </div>
+      </div>
+      <div class="tool-detail">
+        <h4>Usage Example</h4>
+        <pre>${t.usage}</pre>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterTools(cat,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderTools(cat);
+}
+
+function toggleExpand(card){
+  const wasExpanded=card.classList.contains('expanded');
+  document.querySelectorAll('.tool-card.expanded').forEach(c=>c.classList.remove('expanded'));
+  if(!wasExpanded)card.classList.add('expanded');
+}
+
+renderTools('all');
+
+// Fade up animation
+const style=document.createElement('style');
+style.textContent='@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>
