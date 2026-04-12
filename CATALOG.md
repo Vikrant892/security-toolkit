@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-04-12 | [File Integrity Monitor (FIM)](tools/cybersecurity/file_integrity_monitor) | cybersecurity | Monitors files for unauthorized changes by computing and comparing SHA-256 hashe... |
 | 2026-04-11 | [Subdomain Enumerator](tools/cybersecurity/subdomain_enumerator) | cybersecurity | Discovers subdomains using DNS resolution and common subdomain wordlists. Useful... |
 | 2026-04-10 | [Log Anomaly Detector](tools/cybersecurity/log_anomaly_detector) | cybersecurity | Parses server/auth logs to detect brute force attempts, suspicious IPs, unusual ... |
 | 2026-04-09 | [Hash Type Identifier & Cracker](tools/cybersecurity/hash_identifier) | cybersecurity | Identifies hash types (MD5, SHA1, SHA256, bcrypt, etc.) by pattern matching and ... |
