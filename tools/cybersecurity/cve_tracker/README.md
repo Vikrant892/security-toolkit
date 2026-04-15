@@ -15,7 +15,7 @@ python cve_tracker.py
 ```
 
 ## Added
-2026-03-31
+2026-04-15
 
 ---
 *Part of [Security & Data Toolkit](../../..) - Daily tools for cybersecurity, data engineering, and ML.*
