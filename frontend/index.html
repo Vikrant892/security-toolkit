@@ -1,365 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SecKit - Cybersecurity &amp; Data Toolkit</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SECKIT(1) — security toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#000;--card:rgba(28,28,30,.8);--border:rgba(255,255,255,.08);--text:#f5f5f7;--sec:#86868b;--accent:#2997ff;--green:#30d158;--red:#ff453a;--orange:#ff9f0a;--purple:#bf5af2;--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',system-ui,sans-serif}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-decoration:none;transition:opacity .3s ease}
-a:hover{opacity:.8}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border);padding:0 clamp(1rem,5vw,4rem);height:52px;display:flex;align-items:center;justify-content:space-between}
-.nav-brand{font-size:1.1rem;font-weight:600;letter-spacing:-.02em}
-.nav-right{display:flex;gap:1.5rem;align-items:center;font-size:.875rem}
-
-.hero{padding:8rem 0 4rem;text-align:center}
-.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;letter-spacing:-.04em;line-height:1.08}
-.hero h1 span{color:var(--accent)}
-.hero p{color:var(--sec);font-size:clamp(1rem,2vw,1.35rem);margin-top:.75rem;max-width:520px;margin-inline:auto}
-
-.ci-badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(48,209,88,.08);border:1px solid rgba(48,209,88,.2);border-radius:100px;padding:.5rem 1.25rem;margin-top:2rem;font-size:.8125rem;font-weight:500;color:var(--green)}
-.ci-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-.container{max-width:1120px;margin:0 auto;padding:0 clamp(1rem,5vw,4rem)}
-section{padding:4rem 0}
-.label{font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.5rem}
-.title{font-size:clamp(1.75rem,3.5vw,2.75rem);font-weight:700;letter-spacing:-.03em}
-.subtitle{color:var(--sec);font-size:1rem;margin-top:.5rem;max-width:540px}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:100px;font-size:.9375rem;font-weight:500;border:none;cursor:pointer;transition:all .3s ease;font-family:var(--font)}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:#0077ed}
-.btn-sm{padding:.5rem 1.25rem;font-size:.8125rem}
-.btn-ghost{background:none;border:1px solid rgba(255,255,255,.2);color:var(--text)}
-.btn-ghost:hover{border-color:rgba(255,255,255,.4)}
-
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:2.5rem}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:18px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1.5rem;text-align:center}
-.stat-val{font-size:2rem;font-weight:700;letter-spacing:-.03em}
-.stat-lbl{font-size:.8125rem;color:var(--sec);margin-top:.25rem}
-
-/* Filter tabs */
-.filter-bar{display:flex;gap:.5rem;margin-top:2rem;flex-wrap:wrap}
-.filter-btn{padding:.45rem 1.1rem;border-radius:100px;font-size:.75rem;font-weight:600;border:1px solid var(--border);background:none;color:var(--sec);cursor:pointer;transition:all .3s ease;font-family:var(--font)}
-.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-/* Tool cards */
-.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-top:1.5rem}
-.tool-card{background:var(--card);border:1px solid var(--border);border-radius:18px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1.5rem;transition:all .3s ease}
-.tool-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.tool-card h3{font-size:.9375rem;font-weight:600;margin-bottom:.375rem}
-.tool-card p{font-size:.75rem;color:var(--sec);line-height:1.5;margin-bottom:1rem}
-.cat-badge{display:inline-block;padding:.15rem .6rem;border-radius:100px;font-size:.625rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.75rem}
-.cat-cyber{background:rgba(255,69,58,.12);color:var(--red)}
-.cat-data{background:rgba(41,151,255,.12);color:var(--accent)}
-.cat-ml{background:rgba(191,90,242,.12);color:var(--purple)}
-
-/* Interactive tools section */
-.tool-panel{background:var(--card);border:1px solid var(--border);border-radius:18px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:2rem;margin-top:1.5rem;display:none}
-.tool-panel.visible{display:block}
-.tool-tabs{display:flex;gap:.5rem;margin-top:2rem;flex-wrap:wrap}
-.tool-tab{padding:.5rem 1.25rem;border-radius:100px;font-size:.8125rem;font-weight:500;border:1px solid var(--border);background:none;color:var(--sec);cursor:pointer;transition:all .3s ease;font-family:var(--font)}
-.tool-tab.active{background:rgba(255,255,255,.08);color:var(--text);border-color:rgba(255,255,255,.2)}
-
-.fg{display:flex;flex-direction:column;gap:.375rem;margin-bottom:1rem}
-.fg label{font-size:.8125rem;color:var(--sec);font-weight:500}
-.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:12px;padding:.75rem 1rem;color:var(--text);font-size:.875rem;font-family:var(--font);transition:border-color .3s ease;outline:none;resize:vertical}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--accent)}
-.fg select option{background:#1c1c1e}
-.fg textarea{font-family:'SF Mono',SFMono-Regular,Consolas,monospace;min-height:120px}
-.output-box{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:12px;padding:1rem;font-family:'SF Mono',SFMono-Regular,Consolas,monospace;font-size:.8125rem;color:var(--green);word-break:break-all;min-height:48px;line-height:1.6;white-space:pre-wrap}
-.output-box.error{color:var(--red)}
-.output-box .match{background:rgba(41,151,255,.25);color:var(--accent);border-radius:2px;padding:0 2px}
-
-.row-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-@media(max-width:700px){.row-2{grid-template-columns:1fr}}
-
-.pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
-.pill{padding:.4rem 1rem;border-radius:100px;font-size:.75rem;font-weight:500;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--sec)}
-footer{border-top:1px solid var(--border);padding:2.5rem 0;text-align:center;color:var(--sec);font-size:.8125rem;margin-top:4rem}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#fafaf5;color:#1a1a1a;font-family:'IBM Plex Mono',Courier New,monospace;font-size:14px;line-height:1.55;min-height:100vh}
+a{color:#0040a0;text-decoration:underline}
+.page{max-width:78ch;margin:0 auto;padding:30px 20px 40px}
+.mh{display:flex;justify-content:space-between;color:#1a1a1a;font-weight:600;margin-bottom:30px;font-size:13.5px}
+.mh b{letter-spacing:.02em}
+h2{text-transform:uppercase;font-weight:700;letter-spacing:.04em;font-size:14px;color:#000;margin:24px 0 6px}
+p{margin:6px 0;color:#1a1a1a}
+.indent{padding-left:4ch}
+.name{font-weight:600}
+.demos{margin:22px 0;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;padding:14px 0}
+.demo{padding:12px 0;border-bottom:1px dotted #bbb}
+.demo:last-child{border:0}
+.demo h3{font-weight:600;font-size:13px;margin-bottom:8px;letter-spacing:.04em}
+.demo h3::before{content:'=== '}
+.demo h3::after{content:' ==='}
+input,textarea,select{background:#fff;border:1px solid #1a1a1a;color:#1a1a1a;padding:4px 8px;font:inherit;outline:none;border-radius:0;width:100%;max-width:60ch}
+textarea{resize:vertical;min-height:90px;font-size:12.5px}
+input:focus,textarea:focus{border-color:#0040a0}
+.row{display:flex;gap:14px;align-items:center;margin:6px 0;flex-wrap:wrap}
+.row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.radio{display:inline-flex;align-items:center;gap:4px;margin-right:14px;cursor:pointer}
+.radio input{width:auto;position:absolute;opacity:0}
+.radio .box{font-weight:500}
+.radio input:checked+.box{color:#000}
+.btn{background:#fff;border:1px solid #1a1a1a;color:#1a1a1a;padding:4px 12px;font:inherit;font-size:12.5px;cursor:pointer;border-radius:0}
+.btn:hover{background:#1a1a1a;color:#fafaf5}
+.out{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#111;padding:6px 8px;margin-top:8px;min-height:28px;background:transparent;border:1px dashed #999;word-break:break-all;white-space:pre-wrap}
+.mark{background:#fff3a0;padding:0 2px}
+.fail{color:#a00000}
+.ok{color:#006400}
+.footmd{display:flex;justify-content:space-between;padding-top:18px;margin-top:40px;border-top:1px solid #1a1a1a;font-size:13px;color:#1a1a1a;gap:16px;flex-wrap:wrap}
+.footmd a{color:#0040a0}
+.tools-inv{margin:10px 0;padding-left:4ch}
+.tools-inv div{margin:2px 0}
+@media(max-width:600px){.page{padding:18px 14px}}
 </style>
 </head>
 <body>
+<div class="page">
 
-<nav>
-  <div class="nav-brand">SecKit</div>
-  <div class="nav-right">
-    <a href="#catalog">Tools</a>
-    <a href="#interactive">Try Live</a>
-    <a href="https://github.com/Vikrant892/security-toolkit" target="_blank" rel="noopener">GitHub</a>
-  </div>
-</nav>
+<div class="mh"><b>SECKIT(1)</b><span>Security Toolkit</span><b>SECKIT(1)</b></div>
 
-<header class="hero">
-  <div class="container">
-    <h1>Sec<span>Kit</span></h1>
-    <p>Cybersecurity &amp; Data Toolkit</p>
-    <div class="ci-badge">Auto-updated daily at 9 AM ACST</div>
-  </div>
-</header>
+<h2>NAME</h2>
+<div class="indent"><span class="name">seckit</span> — automated daily cybersecurity and data engineering tools</div>
 
-<section>
-  <div class="container">
-    <div class="label">Overview</div>
-    <div class="title">Toolkit Metrics</div>
-    <div class="stats">
-      <div class="stat"><div class="stat-val">15+</div><div class="stat-lbl">Tools Available</div></div>
-      <div class="stat"><div class="stat-val">847</div><div class="stat-lbl">Daily Commits</div></div>
-      <div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Categories</div></div>
-      <div class="stat"><div class="stat-val">12.4K</div><div class="stat-lbl">Lines of Code</div></div>
-    </div>
-  </div>
-</section>
+<h2>SYNOPSIS</h2>
+<div class="indent"><span class="name">seckit</span> [--list] [--run <i>tool</i>] [--category <i>cat</i>] [options]</div>
 
-<section id="catalog">
-  <div class="container">
-    <div class="label">Catalog</div>
-    <div class="title">All Tools</div>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterTools('all')">All</button>
-      <button class="filter-btn" onclick="filterTools('cyber')">Cybersecurity</button>
-      <button class="filter-btn" onclick="filterTools('data')">Data Engineering</button>
-      <button class="filter-btn" onclick="filterTools('ml')">ML / Automation</button>
-    </div>
-    <div class="tool-grid" id="toolGrid"></div>
-  </div>
-</section>
+<h2>DESCRIPTION</h2>
+<p class="indent">seckit is a curated collection of practical security and data engineering utilities, committed daily via GitHub Actions. Each tool is a standalone Python script with no shared dependencies.</p>
+<p class="indent">The project started as a personal discipline exercise: one tool per day, every day. See <code>docs/CATALOG.md</code> for the full inventory.</p>
 
-<section id="interactive">
-  <div class="container">
-    <div class="label">Live Demo</div>
-    <div class="title">Interactive Tools</div>
-    <p class="subtitle">Three tools running entirely in your browser. No server, no tracking.</p>
-    <div class="tool-tabs">
-      <button class="tool-tab active" onclick="showTool('hash')">Hash Generator</button>
-      <button class="tool-tab" onclick="showTool('regex')">Regex Tester</button>
-      <button class="tool-tab" onclick="showTool('json')">JSON Validator</button>
-    </div>
+<h2>TOOLS</h2>
+<div class="indent">
+<p><b>CYBERSECURITY</b></p>
+<div class="tools-inv">
+<div><span class="name">cve-tracker(1)</span></div>
+<div style="padding-left:4ch">Pulls the latest CVE feed from NIST NVD and filters by CVSS threshold.<br>Usage: <code>./cve-tracker --min-cvss 7.0 --days 7</code></div>
+<div style="margin-top:10px"><span class="name">port-scan(1)</span></div>
+<div style="padding-left:4ch">Multi-threaded TCP connect scanner with banner grabbing. Not stealthy — use nmap in the real world.</div>
+<div style="margin-top:10px"><span class="name">hibp-check(1)</span></div>
+<div style="padding-left:4ch">Queries Have I Been Pwned via k-anonymity — only the first 5 hex chars of sha-1 leave the client.</div>
+<div style="margin-top:10px"><span class="name">hash-gen(1)</span></div>
+<div style="padding-left:4ch">Command-line hash generator. Supports md5, sha1, sha256, sha512, and PBKDF2 with configurable iterations.</div>
+<div style="margin-top:10px"><span class="name">password-audit(1)</span></div>
+<div style="padding-left:4ch">Reads a password file (one per line) and reports entropy distribution, duplicates, and common-pattern matches.</div>
+</div>
 
-    <!-- Hash Generator -->
-    <div class="tool-panel visible" id="panel-hash">
-      <div class="fg"><label>Input Text</label><input type="text" id="hashInput" placeholder="Enter text to hash..." oninput="generateHash()"></div>
-      <div class="fg"><label>Algorithm</label>
-        <select id="hashAlgo" onchange="generateHash()">
-          <option value="SHA-256" selected>SHA-256</option><option value="SHA-512">SHA-512</option><option value="SHA-1">SHA-1</option>
-        </select>
-      </div>
-      <div class="fg"><label>Hash Output</label><div class="output-box" id="hashOutput">Enter text above to see the hash...</div></div>
-    </div>
+<p style="margin-top:14px"><b>DATA ENGINEERING</b></p>
+<div class="tools-inv">
+<div><span class="name">csv-profile(1)</span></div>
+<div style="padding-left:4ch">Streams a CSV and reports: row count, column dtypes, null ratios, unique counts, and a top-10 value histogram.</div>
+<div style="margin-top:10px"><span class="name">json-validate(1)</span></div>
+<div style="padding-left:4ch">Validates JSON against an optional JSON Schema. Pretty-prints on success; shows exact line/column on failure.</div>
+<div style="margin-top:10px"><span class="name">sql-generate(1)</span></div>
+<div style="padding-left:4ch">Reads a CSV header and emits <code>CREATE TABLE</code> + <code>INSERT INTO</code> statements. Infers SQL types from sample data.</div>
+<div style="margin-top:10px"><span class="name">regex-test(1)</span></div>
+<div style="padding-left:4ch">Interactive regex tester. Supports PCRE-style flags and capture group extraction.</div>
+</div>
+</div>
 
-    <!-- Regex Tester -->
-    <div class="tool-panel" id="panel-regex">
-      <div class="row-2">
-        <div class="fg"><label>Pattern</label><input type="text" id="regexPattern" placeholder="e.g. \\b\\w+@\\w+\\.\\w+\\b" oninput="testRegex()"></div>
-        <div class="fg"><label>Flags</label><input type="text" id="regexFlags" value="gi" placeholder="gi" oninput="testRegex()" style="max-width:120px"></div>
-      </div>
-      <div class="fg"><label>Test String</label><textarea id="regexInput" placeholder="Enter text to test against..." oninput="testRegex()">Contact us at hello@example.com or support@toolkit.dev for help. Visit https://seckit.dev today.</textarea></div>
-      <div class="fg"><label>Matches</label><div class="output-box" id="regexOutput">Enter a pattern above...</div></div>
-      <div class="fg"><label>Highlighted Result</label><div class="output-box" id="regexHighlight" style="color:var(--text)"></div></div>
-    </div>
+<h2>EXAMPLES</h2>
+<div class="indent" style="white-space:pre-wrap;padding-top:4px">Run the CVE tracker and only show high-severity:
+    <b>$ ./cve-tracker --min-cvss 7.5 --days 7</b>
 
-    <!-- JSON Validator -->
-    <div class="tool-panel" id="panel-json">
-      <div class="fg"><label>JSON Input</label><textarea id="jsonInput" oninput="validateJSON()" placeholder='Paste JSON here...'>{
-  "name": "SecKit",
-  "version": "2.4.1",
-  "tools": ["port-scanner", "cve-tracker", "hash-cracker"],
-  "config": {
-    "autoUpdate": true,
-    "schedule": "0 9 * * *"
-  }
-}</textarea></div>
-      <div class="fg"><label>Result</label><div class="output-box" id="jsonOutput">Paste or type JSON above...</div></div>
-    </div>
-  </div>
-</section>
+Check if a password has been in a breach:
+    <b>$ ./hibp-check 'correct horse battery staple'</b>
+    <span class="ok">✓ Not found in HIBP</span></div>
 
-<section>
-  <div class="container">
-    <div class="label">Stack</div>
-    <div class="title">Built With</div>
-    <div class="pills">
-      <span class="pill">Python</span><span class="pill">GitHub Actions</span><span class="pill">NVD API</span>
-      <span class="pill">HIBP API</span><span class="pill">SubtleCrypto</span><span class="pill">Web APIs</span>
-    </div>
-  </div>
-</section>
+<h2>BUILT-IN (runs in browser)</h2>
+<p class="indent">Three tools are available as in-browser demos: <span class="name">hash-gen</span>, <span class="name">json-validate</span>, and <span class="name">regex-test</span>.</p>
 
-<footer><div class="container">Built by Vikrant Sharma &middot; <a href="https://github.com/Vikrant892/security-toolkit" target="_blank" rel="noopener">View on GitHub</a></div></footer>
+<div class="demos">
+
+<div class="demo">
+<h3>hash-gen</h3>
+<p style="margin:4px 0">Input:</p>
+<input id="hin" placeholder="text to hash" spellcheck="false">
+<div class="row" style="margin-top:8px">
+<span class="radio"><input type="radio" name="alg" value="SHA-256" checked onchange="hg()"><span class="box">(x) SHA-256</span></span>
+<span class="radio"><input type="radio" name="alg" value="SHA-512" onchange="hg()"><span class="box">( ) SHA-512</span></span>
+<span class="radio"><input type="radio" name="alg" value="SHA-1" onchange="hg()"><span class="box">( ) SHA-1</span></span>
+</div>
+<p style="margin:4px 0">Output:</p>
+<div class="out" id="hout">—</div>
+</div>
+
+<div class="demo">
+<h3>json-validate</h3>
+<textarea id="jin" spellcheck="false">{
+  "name": "Vikrant",
+  "city": "Adelaide",
+  "skills": ["python", "sql", "security"]
+}</textarea>
+<div class="row" style="margin-top:8px"><button class="btn" onclick="jv()">validate</button><span id="jcount" style="color:#666;font-size:12px"></span></div>
+<div class="out" id="jout">—</div>
+</div>
+
+<div class="demo">
+<h3>regex-test</h3>
+<div style="margin:4px 0">Pattern:</div>
+<input id="rpat" value="\\b([A-Z][a-z]+)\\b" spellcheck="false">
+<div style="margin:6px 0 4px">Flags:</div>
+<input id="rflags" value="g" spellcheck="false" style="max-width:10ch">
+<div style="margin:6px 0 4px">Test string:</div>
+<textarea id="rstr" spellcheck="false">Adelaide is a city in South Australia. Vikrant lives in Adelaide.</textarea>
+<div class="row" style="margin-top:8px"><button class="btn" onclick="rt()">run</button><span id="rinfo" style="color:#666;font-size:12px"></span></div>
+<div class="out" id="rout">—</div>
+</div>
+
+</div>
+
+<h2>FILES</h2>
+<div class="indent" style="padding-left:4ch">
+<p><code>~/.config/seckit/config.yml</code></p>
+<p style="padding-left:4ch">Per-tool configuration (API keys, timeouts).</p>
+<p><code>~/.cache/seckit/cve.db</code></p>
+<p style="padding-left:4ch">Local SQLite cache of the CVE feed.</p>
+</div>
+
+<h2>HISTORY</h2>
+<p class="indent">Project started 2024-01-08. Committing a tool per day. Current streak — see the GitHub activity graph.</p>
+
+<h2>AUTHOR</h2>
+<p class="indent">Vikrant Sharma &lt;vikrantsharma892@gmail.com&gt; &middot; Cybersecurity Analyst &middot; Adelaide, SA</p>
+
+<h2>SEE ALSO</h2>
+<p class="indent">nmap(1), nvdlib(3), pwned(1), jq(1)<br><a href="https://github.com/Vikrant892/security-toolkit">github.com/Vikrant892/security-toolkit</a></p>
+
+<h2>BUGS</h2>
+<p class="indent">sql-generate misdetects dates as VARCHAR in some locales. Report issues via the GitHub tracker.</p>
+
+<div class="footmd"><span>Vikrant Sharma</span><span id="dt">2025-04-20</span><span>SECKIT(1)</span></div>
+</div>
 
 <script>
-/* ---- Tool Catalog ---- */
-const TOOLS = [
-  {name:'Port Scanner',cat:'cyber',desc:'Scan open ports on a target host with configurable port ranges and timeout settings.'},
-  {name:'CVE Tracker',cat:'cyber',desc:'Track and search CVEs from the National Vulnerability Database with severity filtering.'},
-  {name:'Password Auditor',cat:'cyber',desc:'Evaluate password strength against entropy thresholds and common wordlists.'},
-  {name:'Hash Cracker',cat:'cyber',desc:'Crack hashes using dictionary attacks with support for MD5, SHA1, and SHA256.'},
-  {name:'HIBP Checker',cat:'cyber',desc:'Check email addresses against the Have I Been Pwned breach database.'},
-  {name:'Network Recon',cat:'cyber',desc:'Perform DNS lookups, WHOIS queries, and traceroute for network reconnaissance.'},
-  {name:'CSV Analyzer',cat:'data',desc:'Profile CSV files with column stats, missing values, and type inference.'},
-  {name:'JSON Validator',cat:'data',desc:'Validate, format, and minify JSON with detailed error reporting.'},
-  {name:'Data Profiler',cat:'data',desc:'Generate statistical summaries of datasets including distributions and outliers.'},
-  {name:'SQL Generator',cat:'data',desc:'Generate CREATE TABLE and INSERT statements from CSV or JSON schemas.'},
-  {name:'Anomaly Detector',cat:'ml',desc:'Detect anomalies in log files and time-series data using statistical methods.'},
-  {name:'Log Parser',cat:'ml',desc:'Parse and structure unstructured log files with pattern recognition.'},
-  {name:'Regex Tester',cat:'ml',desc:'Build and test regular expressions with real-time match highlighting.'},
-  {name:'Cron Builder',cat:'ml',desc:'Build and validate cron expressions with natural language descriptions.'},
-  {name:'Encoding Tools',cat:'data',desc:'Encode and decode Base64, URL encoding, HTML entities, and hex strings.'}
-];
-
-const CAT_META = {cyber:{label:'Cybersecurity',cls:'cat-cyber'},data:{label:'Data Engineering',cls:'cat-data'},ml:{label:'ML / Automation',cls:'cat-ml'}};
-const toolGrid = document.getElementById('toolGrid');
-
-function renderTools(filter) {
-  const list = filter === 'all' ? TOOLS : TOOLS.filter(t => t.cat === filter);
-  toolGrid.innerHTML = list.map(t => {
-    const m = CAT_META[t.cat];
-    return `<div class="tool-card" data-cat="${t.cat}">
-      <span class="cat-badge ${m.cls}">${m.label}</span>
-      <h3>${t.name}</h3>
-      <p>${t.desc}</p>
-      <button class="btn btn-sm btn-ghost" onclick="handleRun('${t.name}')">Run</button>
-    </div>`;
-  }).join('');
+async function hg(){
+ const v=document.getElementById('hin').value;const alg=[...document.querySelectorAll('input[name=alg]')].find(i=>i.checked).value;const o=document.getElementById('hout');
+ if(!v){o.textContent='—';return}
+ const buf=new TextEncoder().encode(v);const h=await crypto.subtle.digest(alg,buf);o.textContent=[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('');
 }
+document.getElementById('hin').addEventListener('input',hg);
 
-function filterTools(cat) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase().includes(cat === 'all' ? 'all' : CAT_META[cat].label.toLowerCase().slice(0,4))));
-  renderTools(cat);
+function jv(){
+ const s=document.getElementById('jin').value;const o=document.getElementById('jout');const c=document.getElementById('jcount');
+ try{const p=JSON.parse(s);const pretty=JSON.stringify(p,null,2);o.innerHTML='<span class="ok">✓ valid</span>\n\n'+escape(pretty);c.textContent=countKeys(p)+' keys';}
+ catch(e){const m=e.message.match(/position (\d+)/);let loc='';if(m){const pos=+m[1];const lines=s.substr(0,pos).split('\n');loc=' at line '+lines.length+', col '+lines[lines.length-1].length}
+  o.innerHTML='<span class="fail">✗ '+e.message.replace(/</g,'&lt;')+loc+'</span>';c.textContent=''}
 }
+function countKeys(o,c=0){if(typeof o!=='object'||o===null)return c;if(Array.isArray(o))return o.reduce((a,v)=>countKeys(v,a),c);for(const k in o){c++;c=countKeys(o[k],c)}return c}
+function escape(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+document.getElementById('jin').addEventListener('input',()=>{try{JSON.parse(document.getElementById('jin').value);document.getElementById('jcount').textContent='ok'}catch{document.getElementById('jcount').textContent='invalid'}});
 
-function handleRun(name) {
-  const panel = name.includes('Hash') ? 'hash' : name.includes('Regex') ? 'regex' : name.includes('JSON') ? 'json' : null;
-  if (panel) {
-    showTool(panel);
-    document.getElementById('interactive').scrollIntoView({behavior:'smooth'});
-  }
+function rt(){
+ const pat=document.getElementById('rpat').value,flg=document.getElementById('rflags').value,str=document.getElementById('rstr').value;
+ const o=document.getElementById('rout'),info=document.getElementById('rinfo');
+ try{const re=new RegExp(pat,flg);let m,matches=[];if(flg.includes('g')){while((m=re.exec(str))!==null){matches.push({text:m[0],idx:m.index,groups:m.slice(1)});if(m.index===re.lastIndex)re.lastIndex++}}else{m=re.exec(str);if(m)matches.push({text:m[0],idx:m.index,groups:m.slice(1)})}
+  let html='';let cur=0;for(const m of matches){html+=escape(str.slice(cur,m.idx))+'<span class="mark">'+escape(m.text)+'</span>';cur=m.idx+m.text.length}html+=escape(str.slice(cur));
+  if(matches.length){html+='\n\n'+matches.map((m,i)=>'['+(i+1)+'] "'+escape(m.text)+'"'+(m.groups.length?'  groups: ['+m.groups.map(g=>'"'+escape(g||'')+'"').join(', ')+']':'')).join('\n')}
+  o.innerHTML=html||'<span class="fail">no matches</span>';info.textContent=matches.length+' match(es)';
+ }catch(e){o.innerHTML='<span class="fail">regex error: '+e.message+'</span>';info.textContent=''}
 }
-
-renderTools('all');
-
-/* ---- Interactive Tools ---- */
-function showTool(id) {
-  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('visible'));
-  document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('visible');
-  document.querySelectorAll('.tool-tab').forEach(t => {
-    if (t.textContent.toLowerCase().includes(id)) t.classList.add('active');
-  });
-}
-
-/* Hash Generator */
-async function generateHash() {
-  const text = document.getElementById('hashInput').value;
-  const algo = document.getElementById('hashAlgo').value;
-  const out = document.getElementById('hashOutput');
-  if (!text) { out.textContent = 'Enter text above to see the hash...'; out.classList.remove('error'); return; }
-  try {
-    const enc = new TextEncoder().encode(text);
-    const buf = await crypto.subtle.digest(algo, enc);
-    const arr = Array.from(new Uint8Array(buf));
-    const hex = arr.map(b => b.toString(16).padStart(2, '0')).join('');
-    out.textContent = hex;
-    out.classList.remove('error');
-  } catch (e) {
-    out.textContent = 'Error: ' + e.message;
-    out.classList.add('error');
-  }
-}
-
-/* Regex Tester */
-function testRegex() {
-  const pat = document.getElementById('regexPattern').value;
-  const flags = document.getElementById('regexFlags').value;
-  const text = document.getElementById('regexInput').value;
-  const out = document.getElementById('regexOutput');
-  const hl = document.getElementById('regexHighlight');
-
-  if (!pat) { out.textContent = 'Enter a pattern above...'; out.classList.remove('error'); hl.innerHTML = ''; return; }
-
-  try {
-    const re = new RegExp(pat, flags);
-    const matches = [];
-    let m;
-    const reClone = new RegExp(pat, flags.includes('g') ? flags : flags + 'g');
-    while ((m = reClone.exec(text)) !== null) {
-      matches.push({val: m[0], idx: m.index, groups: m.slice(1)});
-      if (!reClone.global) break;
-    }
-
-    if (matches.length === 0) {
-      out.textContent = 'No matches found.';
-      out.classList.remove('error');
-      hl.innerHTML = escapeHtml(text);
-      return;
-    }
-
-    let result = `Found ${matches.length} match${matches.length > 1 ? 'es' : ''}:\n`;
-    matches.forEach((mt, i) => {
-      result += `\n[${i}] "${mt.val}" at index ${mt.idx}`;
-      if (mt.groups.length) result += `\n    Groups: ${mt.groups.map((g,j) => `$${j+1}="${g||''}"`).join(', ')}`;
-    });
-    out.textContent = result;
-    out.classList.remove('error');
-
-    let highlighted = '';
-    let last = 0;
-    matches.forEach(mt => {
-      highlighted += escapeHtml(text.slice(last, mt.idx));
-      highlighted += '<span class="match">' + escapeHtml(mt.val) + '</span>';
-      last = mt.idx + mt.val.length;
-    });
-    highlighted += escapeHtml(text.slice(last));
-    hl.innerHTML = highlighted;
-  } catch (e) {
-    out.textContent = 'Invalid regex: ' + e.message;
-    out.classList.add('error');
-    hl.innerHTML = '';
-  }
-}
-
-function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-/* JSON Validator */
-function validateJSON() {
-  const text = document.getElementById('jsonInput').value;
-  const out = document.getElementById('jsonOutput');
-  if (!text.trim()) { out.textContent = 'Paste or type JSON above...'; out.classList.remove('error'); return; }
-  try {
-    const parsed = JSON.parse(text);
-    const formatted = JSON.stringify(parsed, null, 2);
-    const keys = countKeys(parsed);
-    out.textContent = `Valid JSON  |  ${keys} keys  |  ${typeof parsed === 'object' && Array.isArray(parsed) ? 'Array[' + parsed.length + ']' : 'Object'}\n\n` + formatted;
-    out.classList.remove('error');
-  } catch (e) {
-    const msg = e.message;
-    const posMatch = msg.match(/position (\d+)/i) || msg.match(/column (\d+)/i);
-    let lineInfo = '';
-    if (posMatch) {
-      const pos = parseInt(posMatch[1]);
-      const before = text.slice(0, pos);
-      const line = (before.match(/\n/g) || []).length + 1;
-      const col = pos - before.lastIndexOf('\n');
-      lineInfo = ` (line ${line}, col ${col})`;
-    }
-    out.textContent = 'Invalid JSON' + lineInfo + '\n\n' + msg;
-    out.classList.add('error');
-  }
-}
-
-function countKeys(obj) {
-  if (typeof obj !== 'object' || obj === null) return 0;
-  if (Array.isArray(obj)) return obj.reduce((s, v) => s + countKeys(v), 0);
-  return Object.keys(obj).reduce((s, k) => s + 1 + countKeys(obj[k]), 0);
-}
-
-/* Init demos */
-testRegex();
-validateJSON();
+hg();jv();rt();
 </script>
 </body>
 </html>
