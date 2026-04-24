@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-04-24 | [Hash Type Identifier & Cracker](tools/cybersecurity/hash_identifier) | cybersecurity | Identifies hash types (MD5, SHA1, SHA256, bcrypt, etc.) by pattern matching and ... |
 | 2026-04-23 | [Password Strength Analyzer](tools/cybersecurity/password_strength_analyzer) | cybersecurity | Analyzes password strength using entropy calculation, common pattern detection, ... |
 | 2026-04-21 | [API Health Monitor](tools/automation/api_health_monitor) | automation | Monitors API endpoints for uptime, response time, status codes, and SSL certific... |
 | 2026-04-19 | [Statistical Anomaly Detector](tools/ml_ai/anomaly_detector_ml) | ml_ai | Detects anomalies in numerical data using Z-score, IQR, and Isolation Forest met... |
