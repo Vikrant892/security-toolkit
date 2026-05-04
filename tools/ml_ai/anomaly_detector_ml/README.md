@@ -15,7 +15,7 @@ python anomaly_detector_ml.py
 ```
 
 ## Added
-2026-04-19
+2026-05-04
 
 ---
 *Part of [Security & Data Toolkit](../../..) - Daily tools for cybersecurity, data engineering, and ML.*
