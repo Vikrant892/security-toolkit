@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-05-05 | [Text Classifier (TF-IDF + Naive Bayes)](tools/ml_ai/text_classifier) | ml_ai | Simple but effective text classifier using TF-IDF vectorization and Naive Bayes.... |
 | 2026-05-04 | [Statistical Anomaly Detector](tools/ml_ai/anomaly_detector_ml) | ml_ai | Detects anomalies in numerical data using Z-score, IQR, and Isolation Forest met... |
 | 2026-05-03 | [JSON ETL Transformer](tools/data_engineering/json_etl_transformer) | data_engineering | Extract, transform, and load JSON data with flattening, type coercion, field map... |
 | 2026-05-02 | [SQL Query Builder & Optimizer](tools/data_engineering/sql_query_builder) | data_engineering | Generates optimized SQL queries from natural descriptions. Supports SELECT, JOIN... |
