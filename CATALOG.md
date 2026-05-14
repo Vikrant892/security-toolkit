@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-05-14 | [TCP Port Scanner](tools/cybersecurity/network_port_scanner) | cybersecurity | Fast multi-threaded TCP port scanner with service detection. Scans common ports ... |
 | 2026-05-13 | [JWT Token Decoder & Validator](tools/cybersecurity/jwt_decoder) | cybersecurity | Decodes JWT tokens, validates structure, checks expiration, and identifies commo... |
 | 2026-05-12 | [File Integrity Monitor (FIM)](tools/cybersecurity/file_integrity_monitor) | cybersecurity | Monitors files for unauthorized changes by computing and comparing SHA-256 hashe... |
 | 2026-05-11 | [Subdomain Enumerator](tools/cybersecurity/subdomain_enumerator) | cybersecurity | Discovers subdomains using DNS resolution and common subdomain wordlists. Useful... |
