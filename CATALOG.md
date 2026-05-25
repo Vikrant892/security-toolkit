@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-05-25 | [Log Anomaly Detector](tools/cybersecurity/log_anomaly_detector) | cybersecurity | Parses server/auth logs to detect brute force attempts, suspicious IPs, unusual ... |
 | 2026-05-24 | [Hash Type Identifier & Cracker](tools/cybersecurity/hash_identifier) | cybersecurity | Identifies hash types (MD5, SHA1, SHA256, bcrypt, etc.) by pattern matching and ... |
 | 2026-05-23 | [Password Strength Analyzer](tools/cybersecurity/password_strength_analyzer) | cybersecurity | Analyzes password strength using entropy calculation, common pattern detection, ... |
 | 2026-05-22 | [Git Repository Analyzer](tools/automation/git_repo_analyzer) | automation | Analyzes git repositories for commit patterns, contributor stats, code churn, an... |
