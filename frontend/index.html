@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SecKit — Cybersecurity & Data Toolkit</title>
+<title>SecKit - Cybersecurity & Data Toolkit</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -102,7 +102,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',
 <section class="hero">
   <div>
     <h2>One tool.<br>Every day. <span class="c">Committed.</span></h2>
-    <p>A discipline exercise turned public toolkit — practical Python scripts for cybersecurity and data engineering. Each tool is standalone, auditable, and does one thing well. Updated daily via GitHub Actions.</p>
+    <p>A discipline exercise turned public toolkit - practical Python scripts for cybersecurity and data engineering. Each tool is standalone, auditable, and does one thing well. Updated daily via GitHub Actions.</p>
   </div>
   <div class="bgstat">
     <div class="bgs"><div class="n">15+</div><div class="l">Tools Shipped</div></div>
@@ -122,7 +122,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',
 <section class="tools" id="tools"></section>
 
 <h3 style="font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px">Browser labs</h3>
-<p style="color:var(--dim);font-size:14px;margin-bottom:18px">Three of the tools run entirely in your browser — no server, no telemetry.</p>
+<p style="color:var(--dim);font-size:14px;margin-bottom:18px">Three of the tools run entirely in your browser - no server, no telemetry.</p>
 
 <section class="inter">
   <div class="lab">
@@ -136,7 +136,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',
       <label><input type="radio" name="alg" value="SHA-1" onchange="hg()"> SHA-1</label>
     </div></div>
     <label>Output</label>
-    <div class="out" id="hout">—</div>
+    <div class="out" id="hout">-</div>
   </div>
 
   <div class="lab">
@@ -146,11 +146,11 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',
     <input id="rpat" value="\\b([A-Z][a-z]+)\\b" spellcheck="false">
     <div style="display:flex;gap:10px;margin:10px 0">
       <div style="width:90px"><label>Flags</label><input id="rflags" value="g" spellcheck="false"></div>
-      <div style="flex:1"><label>Matches</label><div class="out" id="rinfo" style="min-height:36px;padding:7px 10px">—</div></div>
+      <div style="flex:1"><label>Matches</label><div class="out" id="rinfo" style="min-height:36px;padding:7px 10px">-</div></div>
     </div>
     <label>Test</label>
     <textarea id="rstr" spellcheck="false" oninput="rt()">Adelaide is a city in South Australia. Vikrant lives in Adelaide.</textarea>
-    <div class="out" id="rout" style="margin-top:10px">—</div>
+    <div class="out" id="rout" style="margin-top:10px">-</div>
   </div>
 
   <div class="lab">
@@ -162,8 +162,8 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',
   "skills": ["python","sql","security"]
 }</textarea>
     <label style="margin-top:10px">Result</label>
-    <div class="out" id="jout">—</div>
-    <div class="meta" id="jmeta">—</div>
+    <div class="out" id="jout">-</div>
+    <div class="meta" id="jmeta">-</div>
   </div>
 </section>
 
@@ -203,7 +203,7 @@ renderTools();
 
 async function hg(){
   const v=document.getElementById('hin').value;const alg=[...document.querySelectorAll('input[name=alg]')].find(i=>i.checked).value;const o=document.getElementById('hout');
-  if(!v){o.textContent='—';o.classList.remove('err');return}
+  if(!v){o.textContent='-';o.classList.remove('err');return}
   const buf=new TextEncoder().encode(v);const h=await crypto.subtle.digest(alg,buf);o.textContent=[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('');o.classList.remove('err');
 }
 document.getElementById('hin').addEventListener('input',hg);
