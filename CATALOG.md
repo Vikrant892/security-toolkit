@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-06-25 | [Subdomain Enumerator](tools/cybersecurity/subdomain_enumerator) | cybersecurity | Discovers subdomains using DNS resolution and common subdomain wordlists. Useful... |
 | 2026-06-24 | [Log Anomaly Detector](tools/cybersecurity/log_anomaly_detector) | cybersecurity | Parses server/auth logs to detect brute force attempts, suspicious IPs, unusual ... |
 | 2026-06-23 | [Hash Type Identifier & Cracker](tools/cybersecurity/hash_identifier) | cybersecurity | Identifies hash types (MD5, SHA1, SHA256, bcrypt, etc.) by pattern matching and ... |
 | 2026-06-22 | [Password Strength Analyzer](tools/cybersecurity/password_strength_analyzer) | cybersecurity | Analyzes password strength using entropy calculation, common pattern detection, ... |
