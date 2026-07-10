@@ -15,7 +15,7 @@ python subdomain_enumerator.py
 ```
 
 ## Added
-2026-06-25
+2026-07-10
 
 ---
 *Part of [Security & Data Toolkit](../../..) - Daily tools for cybersecurity, data engineering, and ML.*
