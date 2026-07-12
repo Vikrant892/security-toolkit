@@ -15,7 +15,7 @@ python jwt_decoder.py
 ```
 
 ## Added
-2026-06-27
+2026-07-12
 
 ---
 *Part of [Security & Data Toolkit](../../..) - Daily tools for cybersecurity, data engineering, and ML.*
