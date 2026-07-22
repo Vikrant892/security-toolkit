@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-07-22 | [Password Strength Analyzer](tools/cybersecurity/password_strength_analyzer) | cybersecurity | Analyzes password strength using entropy calculation, common pattern detection, ... |
 | 2026-07-21 | [Git Repository Analyzer](tools/automation/git_repo_analyzer) | automation | Analyzes git repositories for commit patterns, contributor stats, code churn, an... |
 | 2026-07-20 | [API Health Monitor](tools/automation/api_health_monitor) | automation | Monitors API endpoints for uptime, response time, status codes, and SSL certific... |
 | 2026-07-19 | [Text Classifier (TF-IDF + Naive Bayes)](tools/ml_ai/text_classifier) | ml_ai | Simple but effective text classifier using TF-IDF vectorization and Naive Bayes.... |
