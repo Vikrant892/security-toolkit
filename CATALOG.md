@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-08-12 | [TCP Port Scanner](tools/cybersecurity/network_port_scanner) | cybersecurity | Fast multi-threaded TCP port scanner with service detection. Scans common ports ... |
 | 2026-08-10 | [File Integrity Monitor (FIM)](tools/cybersecurity/file_integrity_monitor) | cybersecurity | Monitors files for unauthorized changes by computing and comparing SHA-256 hashe... |
 | 2026-08-09 | [Subdomain Enumerator](tools/cybersecurity/subdomain_enumerator) | cybersecurity | Discovers subdomains using DNS resolution and common subdomain wordlists. Useful... |
 | 2026-08-08 | [Log Anomaly Detector](tools/cybersecurity/log_anomaly_detector) | cybersecurity | Parses server/auth logs to detect brute force attempts, suspicious IPs, unusual ... |
