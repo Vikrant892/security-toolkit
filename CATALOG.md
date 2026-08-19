@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-08-19 | [API Health Monitor](tools/automation/api_health_monitor) | automation | Monitors API endpoints for uptime, response time, status codes, and SSL certific... |
 | 2026-08-18 | [Text Classifier (TF-IDF + Naive Bayes)](tools/ml_ai/text_classifier) | ml_ai | Simple but effective text classifier using TF-IDF vectorization and Naive Bayes.... |
 | 2026-08-17 | [Statistical Anomaly Detector](tools/ml_ai/anomaly_detector_ml) | ml_ai | Detects anomalies in numerical data using Z-score, IQR, and Isolation Forest met... |
 | 2026-08-16 | [JSON ETL Transformer](tools/data_engineering/json_etl_transformer) | data_engineering | Extract, transform, and load JSON data with flattening, type coercion, field map... |
