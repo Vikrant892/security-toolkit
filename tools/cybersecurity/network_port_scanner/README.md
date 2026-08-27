@@ -15,7 +15,7 @@ python network_port_scanner.py
 ```
 
 ## Added
-2026-08-12
+2026-08-27
 
 ---
 *Part of [Security & Data Toolkit](../../..) - Daily tools for cybersecurity, data engineering, and ML.*
