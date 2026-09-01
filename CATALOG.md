@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-09-01 | [Statistical Anomaly Detector](tools/ml_ai/anomaly_detector_ml) | ml_ai | Detects anomalies in numerical data using Z-score, IQR, and Isolation Forest met... |
 | 2026-08-31 | [JSON ETL Transformer](tools/data_engineering/json_etl_transformer) | data_engineering | Extract, transform, and load JSON data with flattening, type coercion, field map... |
 | 2026-08-30 | [SQL Query Builder & Optimizer](tools/data_engineering/sql_query_builder) | data_engineering | Generates optimized SQL queries from natural descriptions. Supports SELECT, JOIN... |
 | 2026-08-29 | [CSV Data Profiler](tools/data_engineering/csv_data_profiler) | data_engineering | Automatically profiles CSV datasets - detects types, finds nulls, calculates sta... |
