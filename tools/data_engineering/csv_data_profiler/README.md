@@ -15,7 +15,7 @@ python csv_data_profiler.py
 ```
 
 ## Added
-2026-09-13
+2026-09-28
 
 ---
 *Part of [Security & Data Toolkit](../../..) - Daily tools for cybersecurity, data engineering, and ML.*
