@@ -2,6 +2,7 @@
 
 | Date | Tool | Category | Description |
 |------|------|----------|-------------|
+| 2026-11-24 | [JWT Token Decoder & Validator](tools/cybersecurity/jwt_decoder) | cybersecurity | Decodes JWT tokens, validates structure, checks expiration, and identifies commo... |
 | 2026-11-23 | [File Integrity Monitor (FIM)](tools/cybersecurity/file_integrity_monitor) | cybersecurity | Monitors files for unauthorized changes by computing and comparing SHA-256 hashe... |
 | 2026-11-22 | [Subdomain Enumerator](tools/cybersecurity/subdomain_enumerator) | cybersecurity | Discovers subdomains using DNS resolution and common subdomain wordlists. Useful... |
 | 2026-11-21 | [Log Anomaly Detector](tools/cybersecurity/log_anomaly_detector) | cybersecurity | Parses server/auth logs to detect brute force attempts, suspicious IPs, unusual ... |
